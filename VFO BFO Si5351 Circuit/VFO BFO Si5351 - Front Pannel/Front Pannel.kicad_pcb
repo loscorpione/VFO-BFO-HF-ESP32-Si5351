@@ -129,8 +129,8 @@
 				)
 			)
 		)
-		(property "Value" "10K"
-			(at 5.08 2.37 0)
+		(property "Value" "4.7K"
+			(at 14.956 -0.3708 0)
 			(layer "F.Fab")
 			(uuid "a4485ce8-987e-4bbc-8860-612be8725c2d")
 			(effects
@@ -1338,8 +1338,8 @@
 				)
 			)
 		)
-		(property "Value" "10K"
-			(at 5.08 2.37 0)
+		(property "Value" "4.7K"
+			(at 14.956 -0.0708 0)
 			(layer "F.Fab")
 			(uuid "dc0edf02-5fea-49b5-af20-89eec5ce3643")
 			(effects
@@ -1938,7 +1938,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R1"
-			(at 5.08 -2.37 90)
+			(at 5.0502 -2.37 90)
 			(layer "F.SilkS")
 			(uuid "c90878bc-2548-4085-9eb8-755fdba53474")
 			(effects
@@ -1949,12 +1949,12 @@
 			)
 		)
 		(property "Value" "R=Vled-2/20mA"
-			(at 5.08 2.37 90)
+			(at 4.8006 2.1274 90)
 			(layer "F.Fab")
 			(uuid "83e6f512-28c6-49c2-9c46-fec9f5067320")
 			(effects
 				(font
-					(size 1 1)
+					(size 0.6 0.8)
 					(thickness 0.15)
 				)
 			)
@@ -5763,7 +5763,7 @@
 		(descr "Generic 6mm SW tactile push button")
 		(tags "tact sw push 6mm")
 		(property "Reference" "SW8"
-			(at 3.22 7.502 180)
+			(at 3.22 6.9252 180)
 			(layer "F.Fab")
 			(uuid "5981284a-357e-4992-9cbb-0c14c49e0c93")
 			(effects

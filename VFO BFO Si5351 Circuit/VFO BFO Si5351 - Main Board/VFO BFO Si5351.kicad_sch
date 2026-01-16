@@ -5776,10 +5776,6 @@
 		(uuid "43bff7f8-1af7-4651-b951-b5660b571a42")
 	)
 	(no_connect
-		(at 88.9 63.5)
-		(uuid "4b3eb80a-cddd-4135-8f53-3340bcc203f9")
-	)
-	(no_connect
 		(at 110.49 46.99)
 		(uuid "5438dac0-ce3c-4b42-8134-86dcc6ec7b48")
 	)
