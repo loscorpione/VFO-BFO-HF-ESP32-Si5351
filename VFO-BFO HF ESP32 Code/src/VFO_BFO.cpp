@@ -103,6 +103,7 @@ int readBFOEncoder() {
   
   int MSB = digitalRead(BFO_ENC_CLK);
   int LSB = digitalRead(BFO_ENC_DT);
+  
   int encoded = (MSB << 1) | LSB;
 
   // Aspetta che il segnale sia stabile per 3ms

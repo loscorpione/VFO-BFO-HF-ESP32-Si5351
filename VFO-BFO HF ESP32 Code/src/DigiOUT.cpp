@@ -12,9 +12,6 @@ extern int currentMode;
 uint8_t lastOutputState = 0xFF; // Inizializza con un valore impossibile
 
 void setupDigiOUT() {
-  // Inizializza la comunicazione I2C
-  Wire.begin(I2C_SDA, I2C_SCL);
-  delay(100);
   
   // Reset del PCF8574 - imposta tutte le uscite a 0
   Wire.beginTransmission(PCF8574A_ADDRESS);
@@ -32,41 +29,51 @@ void setupDigiOUT() {
 void updateModeOutputs() {
   uint8_t outputState = 0;
   
-   // Uscita binaria selezione filtri passa banda (bit 0-3)
+  // Uscita binaria selezione filtri passa banda (bit 0-2)
   if (displayedFrequency >= 1600000 && displayedFrequency < 2500000) {
-    outputState = 0b0001;
+    outputState = 0b001;  // 160m
   }
   else if (displayedFrequency >= 2500000 && displayedFrequency < 4700000) {
-    outputState = 0b0010;
+    outputState = 0b010;  // 80m
   }
   else if (displayedFrequency >= 4700000 && displayedFrequency < 7500000) {
-    outputState = 0b0011;
+    outputState = 0b011;  // 60m
   }
   else if (displayedFrequency >= 7500000 && displayedFrequency < 14500000) {
-    outputState = 0b0100;
+    outputState = 0b100;  // 40m/30m
   }
   else if (displayedFrequency >= 14500000 && displayedFrequency < 21500000) {
-    outputState = 0b0101;
+    outputState = 0b101;  // 20m/17m
   }
   else if (displayedFrequency >= 21500000 && displayedFrequency <= 33000000) {
-    outputState = 0b0110;
+    outputState = 0b110;  // 15m/12m/10m
   }
   else {
-    outputState = 0b0000;
+    outputState = 0b000;  // Fuori banda
   }
 
-  // Uscita binaria selezione modalità (bit 4-5)
-  outputState |= (currentMode << 4);
+ // Uscita binaria selezione modalità (bit 3-4)
+  // Mappatura: AM=00, LSB=01, USB=10, CW=11
+  outputState |= (currentMode << 3);
   
-  // Uscita binaria selettore AGC (bit 6)
+  // Uscita binaria selettore AGC (bit 5)
   if (agcFastMode) {
-    outputState |= (1 << 6);  // AGC Fast
+    outputState |= (1 << 5);  // AGC Fast = 1
   }
+  // NOTA: se AGC Slow, bit rimane a 0
 
-  // Uscita binaria selettore ATT (bit 7)
+  // Uscita binaria selettore ATT (bit 6)
   if (attenuatorEnabled) {
-    outputState |= (1 << 7);  // ATT -20dB abilitato
+    outputState |= (1 << 6);  // ATT -20dB abilitato = 1
   }
+  // NOTA: se ATT disabilitato, bit rimane a 0
+
+   // Uscita binaria BFO Enable (bit 7)
+  // BFO attivo solo per LSB, USB, CW (non per AM)
+  if (currentMode != MODE_AM && bfoEnabled) {
+    outputState |= (1 << 7);  // BFO Enable = 1
+  }
+  // NOTA: per AM, bit rimane a 0
   
   if (outputState != lastOutputState) {
     Wire.beginTransmission(PCF8574A_ADDRESS);
@@ -76,17 +83,17 @@ void updateModeOutputs() {
     lastOutputState = outputState;
     
     // Debug output
-/*     Serial.print("DigiOUT: Banda:");
-    Serial.print(outputState & 0x0F, BIN);
-    Serial.print(" Mode:");
-    Serial.print((outputState >> 4) & 0x03, BIN);
-    Serial.print(" AGC:");
-    Serial.print((outputState >> 6) & 0x01 ? "Fast" : "Slow");
-    Serial.print(" ATT:");
-    Serial.print((outputState >> 7) & 0x01 ? "ON" : "OFF");
-    Serial.print(" Output:");
-    Serial.print(outputState, BIN);
-    Serial.println(error == 0 ? " [OK]" : " [ERROR]"); */
+    // Serial.print("DigiOUT: Banda:");
+    // Serial.print(outputState & 0x0F, BIN);
+    // Serial.print(" Mode:");
+    // Serial.print((outputState >> 4) & 0x03, BIN);
+    // Serial.print(" AGC:");
+    // Serial.print((outputState >> 6) & 0x01 ? "Fast" : "Slow");
+    // Serial.print(" ATT:");
+    // Serial.print((outputState >> 7) & 0x01 ? "ON" : "OFF");
+    // Serial.print(" Output:");
+    // Serial.print(outputState, BIN);
+    // Serial.println(error == 0 ? " [OK]" : " [ERROR]");
   }
 }
 

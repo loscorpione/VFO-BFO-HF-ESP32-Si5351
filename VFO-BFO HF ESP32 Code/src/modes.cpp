@@ -55,6 +55,7 @@ void updateBFOForMode() {
       break;
   }
   updateBFO();
+  
 }
 
 // Aggiorna visualizzazione della modalità

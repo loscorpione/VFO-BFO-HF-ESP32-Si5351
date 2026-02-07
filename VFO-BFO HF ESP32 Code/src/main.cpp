@@ -103,10 +103,54 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
+/*   //**********************************************************
+  // // === DIAGNOSTICA I2C ===
+  Serial.println("\n=== DIAGNOSTICA I2C ===");
+  Wire.begin(I2C_SDA, I2C_SCL);
+  Wire.setClock(100000); // 100kHz
+  delay(100);
+  
+  // Scansiona tutto il bus I2C
+  byte error, address;
+  int nDevices = 0;
+  
+  Serial.println("Scansione bus I2C...");
+  for(address = 1; address < 127; address++) {
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+    
+    if (error == 0) {
+      Serial.print("Dispositivo trovato all'indirizzo 0x");
+      if (address < 16) Serial.print("0");
+      Serial.print(address, HEX);
+      
+      // Identifica i dispositivi
+      if (address == 0x60) Serial.println(" -> SI5351");
+      else if (address == 0x20) Serial.println(" -> PCF8574A");
+      else if (address == 0x50) Serial.println(" -> EEPROM 24LC32");
+      else Serial.println(" -> Sconosciuto");
+      
+      nDevices++;
+    }
+  }
+  
+  if (nDevices == 0) {
+    Serial.println("Nessun dispositivo I2C trovato!");
+  } else {
+    Serial.print("Totale dispositivi trovati: ");
+    Serial.println(nDevices);
+  }
+  Serial.println("=== FINE DIAGNOSTICA ===\n");
+  //********************************************************** */
+
   // Configurazione encoder VFO con pull-up interni 
   pinMode(VFO_ENC_CLK, INPUT_PULLUP);
   pinMode(VFO_ENC_DT, INPUT_PULLUP);
   pinMode(SW_STEP, INPUT_PULLUP);
+
+  // Configurazione I2C con pull-up interni 
+  // pinMode(I2C_SDA, INPUT_PULLUP);
+  // pinMode(I2C_SCL, INPUT_PULLUP);
 
   // Configura encoder pitch BFO con pull-up interni 
   pinMode(BFO_ENC_CLK, INPUT_PULLUP);
@@ -117,6 +161,11 @@ void setup() {
   pinMode(SW_ATT, INPUT_PULLUP);
   pinMode(SW_BAND, INPUT_PULLUP);
   pinMode(SW_MODE, INPUT_PULLUP);
+  pinMode(SW_SCAN, INPUT_PULLUP);
+
+  // Inizializza I2C con clock ridotto PRIMA di tutto
+  Wire.begin(I2C_SDA, I2C_SCL);
+  Wire.setClock(400000); //  400kHz
 
   // Inizializza display
   tft.init();

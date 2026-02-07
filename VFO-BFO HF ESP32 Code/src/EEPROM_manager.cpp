@@ -14,7 +14,7 @@ extern bool attenuatorEnabled;
 EEPROMManager eepromManager;
 
 void EEPROMManager::begin() {
-    Wire.begin(I2C_SDA, I2C_SCL);
+    
     Wire.setClock(100000);
     Wire.setTimeout(1000);
     delay(100);

@@ -18,8 +18,6 @@ int currentBFOOffset = 0;
 
 
 void setupSI5351() {
-  Wire.begin(I2C_SDA, I2C_SCL);
-  delay(100);
 
   if (si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0) == false) {
     while(1) {
