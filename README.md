@@ -1,3 +1,5 @@
+<h2 align="center">VFO/BFO con SI5351A ed ESP32</h2>
+
 Questo progetto descrive la realizzazione di un VFO / BFO digitale
 basato su ESP32 DevKit 32D e generatore di frequenza Si5351A.
 
@@ -52,7 +54,11 @@ I comandi sono:
 - AGC: slow e fast
 - ATT: selettore attenuatore
 
- 
- 
-[![Guarda il video](https://img.youtube.com/vi/RLuy1z0uWSg/maxresdefault.jpg)](https://www.youtube.com/watch?v=RLuy1z0uWSg)
+<h2 align="center">🎬 Video del progetto</h2>
+
+<p align="center">
+  <a href="https://youtu.be/RLuy1z0uWSg">
+    <img src="https://img.youtube.com/vi/RLuy1z0uWSg/maxresdefault.jpg" width="700">
+  </a>
+</p>
 
