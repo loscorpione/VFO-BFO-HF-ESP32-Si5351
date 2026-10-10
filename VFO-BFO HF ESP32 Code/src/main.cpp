@@ -27,7 +27,7 @@ int32_t currentCalibration = 0;
 unsigned long vfoFrequency = 7000000 + IF_FREQUENCY;
 unsigned long displayedFrequency = 7000000;
 unsigned long step = 1000;
-unsigned long minFreq = 1000000;
+unsigned long minFreq = 500000;
 unsigned long maxFreq = 30000000;
 
 // ============================================
@@ -303,7 +303,7 @@ void confirmFrequencyInput() {
         // Serial.print("Frequenza (Hz): ");
         // Serial.println(newFreq);
 
-    if (newFreq >= 1000000 && newFreq <= 30000000) {
+    if (newFreq >= minFreq && newFreq <= maxFreq) {
         displayedFrequency = newFreq;
         vfoFrequency = displayedFrequency + IF_FREQUENCY;
         updateFrequency();

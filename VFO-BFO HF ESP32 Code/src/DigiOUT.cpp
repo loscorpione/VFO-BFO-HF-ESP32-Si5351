@@ -39,29 +39,29 @@ void setupDigiOUT() {
 void updateModeOutputs() {
     uint8_t outputState = 0;
     
-    // ============================================
-    // BIT 0-2: Selezione filtri passa banda
-    // ============================================
-    if (displayedFrequency >= 1600000 && displayedFrequency < 2500000) {
-        outputState = 0b001;  // 160m
+    // ====================================================
+    // Mappatura: Selezione filtri passa banda Preselettore
+    // ====================================================
+    if (displayedFrequency >= 200000 && displayedFrequency < 1000000) {
+        outputState = 0b000;  // da 200kHz a 1000kHz - Band=000 
     }
-    else if (displayedFrequency >= 2500000 && displayedFrequency < 4700000) {
-        outputState = 0b010;  // 80m
+    else if (displayedFrequency >= 1000000 && displayedFrequency < 2000000) {
+        outputState = 0b001;  // 1000kHz a 2000kHz - Band=001
     }
-    else if (displayedFrequency >= 4700000 && displayedFrequency < 7500000) {
-        outputState = 0b011;  // 60m
+    else if (displayedFrequency >= 2000000 && displayedFrequency < 4000000) {
+        outputState = 0b010;  // 2000kHz a 4000kHz - Band=010
     }
-    else if (displayedFrequency >= 7500000 && displayedFrequency < 14500000) {
-        outputState = 0b100;  // 40m/30m
+    else if (displayedFrequency >= 4000000 && displayedFrequency < 8000000) {
+        outputState = 0b011;  // 4000kHz a 8000kHz - Band=011
     }
-    else if (displayedFrequency >= 14500000 && displayedFrequency < 21500000) {
-        outputState = 0b101;  // 20m/17m
+    else if (displayedFrequency >= 8000000 && displayedFrequency < 15000000) {
+        outputState = 0b100;  // 8000kHz a 15MHz - Band=100
     }
-    else if (displayedFrequency >= 21500000 && displayedFrequency <= 33000000) {
-        outputState = 0b110;  // 15m/12m/10m
+    else if (displayedFrequency >= 15000000 && displayedFrequency <= 30000000) {
+        outputState = 0b101;  // 15MHz a 30MHz - Band=101
     }
     else {
-        outputState = 0b000;  // Fuori banda
+        outputState = 0b110;  // Fuori banda - band=110 (nessun filtro attivo)
     }
 
     // ============================================
