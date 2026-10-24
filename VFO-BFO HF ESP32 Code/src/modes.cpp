@@ -14,6 +14,31 @@ extern TFT_eSPI tft;
 const char* modeNames[] = {"AM", "LSB", "USB", "CW"};
 int currentMode = MODE_AM;
 
+// =============================================
+// AGGIOR. AUTOM. MODALITA' IN BASE ALLA FREQUENZA
+// =============================================
+
+void autoUpdateModeForFrequency() {
+if (currentMode == MODE_AM || currentMode == MODE_CW) return;
+    
+    // Aggiorna solo se la frequenza è fuori dal range 1-30 MHz (opzionale, per sicurezza)
+    if (displayedFrequency < 1000000 || displayedFrequency > 30000000) return;
+    
+    if (displayedFrequency < 10000000) {
+        // Sotto 10 MHz -> LSB
+        if (currentMode != MODE_LSB) {
+            currentMode = MODE_LSB;
+            updateBFOForMode();
+        }
+    } else {
+        // Sopra 10 MHz -> USB
+        if (currentMode != MODE_USB) {
+            currentMode = MODE_USB;
+            updateBFOForMode();
+        }
+    }
+}
+
 // ============================================
 // CAMBIO MODALITA'
 // ============================================

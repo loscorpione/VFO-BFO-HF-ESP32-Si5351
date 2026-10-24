@@ -1,4 +1,5 @@
 #include "bands.h"
+#include "modes.h"
 #include "config.h"
 #include "DigiOUT.h" 
 #include <TFT_eSPI.h>
@@ -41,6 +42,10 @@ int getBandIndex(unsigned long freq) {
 void changeBand() {
     currentBandIndex = (currentBandIndex + 1) % totalBands;
     displayedFrequency = bands[currentBandIndex].startFreq;
+    
+    // Aggiorna la modalità automaticamente (rispetta AM/CW)
+    autoUpdateModeForFrequency();
+    
     updateModeOutputs();
 }
 

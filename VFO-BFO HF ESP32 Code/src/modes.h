@@ -24,8 +24,10 @@ extern int currentMode;
 // FUNZIONI
 // ============================================
 
-void changeMode();
-void updateModeInfo();
-void updateBFOForMode();
+void changeMode();                  // Cambia modalità (AM, LSB, USB, CW)
+void updateModeInfo();              // Aggiorna display modalità
+void updateModeOutputs();           // Aggiorna uscite modalità (pin digitali)  
+void updateBFOForMode();            // Aggiorna frequenza BFO in base alla modalità corrente
+void autoUpdateModeForFrequency();  // Aggiorna automaticamente la modalità in base alla frequenza corrente (solo per LSB/USB)
 
 #endif

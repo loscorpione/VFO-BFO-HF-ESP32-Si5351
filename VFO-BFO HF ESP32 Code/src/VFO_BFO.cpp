@@ -63,6 +63,8 @@ void readVFOEncoder() {
         if (displayedFrequency > maxFreq) displayedFrequency = maxFreq;
         if (displayedFrequency < minFreq) displayedFrequency = minFreq;
         
+        // Aggiorna la modalità automaticamente (rispetta AM/CW)
+        autoUpdateModeForFrequency();
         updateFrequency();
         updateFrequencyDisplay();
         updateBandInfo();

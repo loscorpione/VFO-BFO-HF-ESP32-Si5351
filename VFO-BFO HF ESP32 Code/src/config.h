@@ -86,7 +86,7 @@
         #define SW_MODE 25                  // Pulsante cambio modalità
         #define SW_AGC  26                  // Pulsante AGC Fast/Slow
         #define SW_ATT  27                  // Pulsante Attenuatore -20dB
-        #define SW_SCAN 14                  // Pulsante Scan (futuro)
+        #define SW_SCAN 14                  // Pulsante blocco frequenza (ex SW_SCAN)
         #define SW_RTTY_CW  36              // Pulsante RTTY_CW (futuro)
 
         // Debounce per tutti i pulsanti

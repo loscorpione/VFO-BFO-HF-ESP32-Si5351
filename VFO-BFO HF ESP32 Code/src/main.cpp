@@ -305,8 +305,11 @@ void confirmFrequencyInput() {
 
     if (newFreq >= minFreq && newFreq <= maxFreq) {
         displayedFrequency = newFreq;
-        updateFrequency();
-        updateBandInfo();
+        autoUpdateModeForFrequency();
+        updateFrequency();          // Aggiorna VFO con la nuova frequenza
+        updateModeInfo();          // Aggiorna display modalità
+        updateModeOutputs();       // Aggiorna uscite digitali
+        updateBandInfo();          // Aggiorna display banda
          eepromManager.requestQuickSave();
         showInputConfirm();
     } else {
@@ -557,9 +560,11 @@ void loop() {
         bandButtonPressed = true;
         changeBand();
         lastBandButtonPress = millis();
-        updateFrequency();
-        updateFrequencyDisplay();
-        updateBandInfo();
+        updateFrequency();           // Ricalcola VFO con la nuova IF
+        updateFrequencyDisplay();    // Aggiorna display frequenza
+        updateBandInfo();            // Aggiorna display banda
+        updateModeInfo();            // Aggiorna display modalità
+        updateModeOutputs();         // Aggiorna uscite modalità
         eepromManager.requestQuickSave();
         delay(300);
       }
@@ -625,28 +630,38 @@ void loop() {
             } else {
                 // Modalità normale
                 switch (key) {
-                    case '*':
-                        // Step Down
-                        if (step == 10) step = 10000;
-                        else if (step == 100) step = 10;
-                        else if (step == 1000) step = 100;
-                        else if (step == 10000) step = 1000;
-                        updateStepDisplay();
-                        // Debug
-                        // Serial.print("Step: ");
-                        // Serial.println(step);
+                    case '#':
+                        // Step Down (con limiti)
+                        if (step == 10) {
+                            // già al minimo, non fare nulla
+                            Serial.println("Step già al minimo (10Hz)");
+                        } else if (step == 100) {
+                            step = 10;
+                            updateStepDisplay();
+                        } else if (step == 1000) {
+                            step = 100;
+                            updateStepDisplay();
+                        } else if (step == 10000) {
+                            step = 1000;
+                            updateStepDisplay();
+                        }
                         break;
                         
-                    case '#':
-                        // Step Up
-                        if (step == 10) step = 100;
-                        else if (step == 100) step = 1000;
-                        else if (step == 1000) step = 10000;
-                        else if (step == 10000) step = 10;
-                        updateStepDisplay();
-                        // Debug
-                        // Serial.print("Step: ");
-                        // Serial.println(step);
+                    case '*':
+                        // Step Up (con limiti)
+                        if (step == 10000) {
+                            // già al massimo, non fare nulla
+                            Serial.println("Step già al massimo (10kHz)");
+                        } else if (step == 10) {
+                            step = 100;
+                            updateStepDisplay();
+                        } else if (step == 100) {
+                            step = 1000;
+                            updateStepDisplay();
+                        } else if (step == 1000) {
+                            step = 10000;
+                            updateStepDisplay();
+                        }
                         break;
                         
                     case 'A':
