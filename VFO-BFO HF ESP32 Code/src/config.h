@@ -7,9 +7,9 @@
     // VERSIONI PROGETTO
     // ============================================
 
-        #define SW_VERSION "V2.0"
+        #define SW_VERSION "V2.1"
         #define HW_VERSION "V1.1"
-        #define VERSION_DATE "Giugno 2026"
+        #define VERSION_DATE "Ottobre 2026"
 
         #define AUTHOR "Scorpione Maker (IV3LDJ)"
         #define GITHUB_URL "https://github.com/loscorpione/VFO-BFO-HF-ESP32-Si5351"
@@ -161,8 +161,15 @@
     // CONFIGURAZIONE FREQUENZE
     // ============================================
 
-        // Frequenza IF del ricevitore
+        // Frequenza IF nominale
         #define IF_FREQUENCY 455000         // IF=455kHz
+
+        // Frequenze IF equivalenti per modalità (includono l'offset del BFO)
+        // Il VFO viene calcolato come: displayedFrequency + IF_EQUIV
+        #define IF_AM   455000              // AM: IF nominale
+        #define IF_LSB  453500              // LSB: IF - 1.5kHz
+        #define IF_USB  456500              // USB: IF + 1.5kHz
+        #define IF_CW   454300              // CW: IF - 700Hz
 
         // Frequenze BFO base (con offset di 1.5kHz)
         #define BFO_USB_BASE 456500         // BFO per USB (IF 455kHz + offset 1.5kHz)

@@ -63,7 +63,6 @@ void readVFOEncoder() {
         if (displayedFrequency > maxFreq) displayedFrequency = maxFreq;
         if (displayedFrequency < minFreq) displayedFrequency = minFreq;
         
-        vfoFrequency = displayedFrequency + IF_FREQUENCY;
         updateFrequency();
         updateFrequencyDisplay();
         updateBandInfo();

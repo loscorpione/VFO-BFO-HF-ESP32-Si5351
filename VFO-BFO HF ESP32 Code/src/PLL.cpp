@@ -44,12 +44,33 @@ void setupSI5351() {
 }
 
 // ============================================
-// AGGIORNAMENTO FREQUENZE VFO E BFO
+// AGGIORNAMENTO FREQUENZA VFO (con IF dinamica)
 // ============================================
 
 void updateFrequency() {
-    si5351.set_freq(vfoFrequency * 100ULL, SI5351_CLK0);
+    // Calcola la frequenza IF equivalente in base alla modalità
+    unsigned long ifEquiv;
+    switch (currentMode) {
+        case MODE_AM:  ifEquiv = IF_AM;  break;
+        case MODE_LSB: ifEquiv = IF_LSB; break;
+        case MODE_USB: ifEquiv = IF_USB; break;
+        case MODE_CW:  ifEquiv = IF_CW;  break;
+        default:       ifEquiv = IF_AM;  break;
+    }
+    
+    // Calcola la frequenza del VFO
+    unsigned long vfoFreq = displayedFrequency + ifEquiv;
+    
+    // Aggiorna il SI5351
+    si5351.set_freq(vfoFreq * 100ULL, SI5351_CLK0);
+    
+    // Aggiorna la variabile globale (per coerenza con il resto del codice)
+    vfoFrequency = vfoFreq;
 }
+
+// ============================================
+// AGGIORNAMENTO FREQUENZA BFO
+// ============================================
 
 void updateBFO() {
     if (bfoEnabled) {

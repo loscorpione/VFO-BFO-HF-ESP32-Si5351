@@ -305,7 +305,6 @@ void confirmFrequencyInput() {
 
     if (newFreq >= minFreq && newFreq <= maxFreq) {
         displayedFrequency = newFreq;
-        vfoFrequency = displayedFrequency + IF_FREQUENCY;
         updateFrequency();
         updateBandInfo();
          eepromManager.requestQuickSave();
@@ -473,8 +472,6 @@ void setup() {
   } else {
       Serial.println("Nessuna calibrazione trovata in EEPROM, usando default (0)");
   }
-  
-  vfoFrequency = displayedFrequency + IF_FREQUENCY;
 
   // inizializza tastiera a matrice 4x4 via PCF8574T
   setupKeypad();  
@@ -584,6 +581,7 @@ void loop() {
         lastModeButtonPress = millis();
         updateModeOutputs();
         updateModeInfo();
+        updateFrequency(); 
         eepromManager.requestQuickSave();
         delay(300);
       }
