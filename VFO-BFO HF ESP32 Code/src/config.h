@@ -165,13 +165,13 @@
         #define IF_FREQUENCY 455000         // IF=455kHz
 
         // Frequenze BFO base (con offset di 1.5kHz)
-        #define BFO_LSB_BASE 456500         // BFO per LSB (IF 455kHz + offset 1.5kHz)
-        #define BFO_USB_BASE 453500         // BFO per USB (IF 455kHz - offset 1.5kHz)
+        #define BFO_USB_BASE 456500         // BFO per USB (IF 455kHz + offset 1.5kHz)
+        #define BFO_LSB_BASE 453500         // BFO per LSB (IF 455kHz - offset 1.5kHz)
         #define BFO_CW_BASE 454300          // BFO per CW (IF 455kHz - offset 700Hz) 
 
         // Limiti Pitch BFO         
-        #define BFO_PITCH_MIN -400          // -300Hz
-        #define BFO_PITCH_MAX 400           // +300Hz  
+        #define BFO_PITCH_MIN -300          // -300Hz
+        #define BFO_PITCH_MAX 300           // +300Hz  
         #define BFO_PITCH_STEP 5            // 5Hz per click
 
     // ============================================
