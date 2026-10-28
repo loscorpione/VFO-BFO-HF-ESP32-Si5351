@@ -177,8 +177,8 @@
         #define BFO_CW_BASE 454300          // BFO per CW (IF 455kHz - offset 700Hz) 
 
         // Limiti Pitch BFO         
-        #define BFO_PITCH_MIN -300          // -300Hz
-        #define BFO_PITCH_MAX 300           // +300Hz  
+        #define BFO_PITCH_MIN -200          // -200Hz
+        #define BFO_PITCH_MAX 200           // +200Hz  
         #define BFO_PITCH_STEP 5            // 5Hz per click
 
     // ============================================
