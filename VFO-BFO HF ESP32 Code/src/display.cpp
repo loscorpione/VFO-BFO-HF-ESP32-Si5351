@@ -26,32 +26,43 @@ void drawSplashScreen() {
     tft.setSwapBytes(true);
     tft.pushImage(logoX, logoY, 80, 80, (uint16_t*)Logo_80x80);
     
+    // Titolo principale: VFO/BFO
     tft.setTextColor(TFT_ORANGE, BACKGROUND_COLOR);
     tft.setTextSize(2);
     tft.setTextFont(1);
-    String text = "HF RECEIVER V1.1";
+    String text = "VFO/BFO";
     int textX = logoX + 80 + 15;
-    int textY = logoY + (80 / 2) - 8;
-    tft.drawString(text, textX, textY);
+    int textY = logoY + 5;
+    tft.drawString(text, textX + 40, textY);
     
-    tft.setTextColor(TFT_ORANGE, BACKGROUND_COLOR);
+    // Hardware (ingrandito)
+    tft.setTextColor(TFT_CYAN, BACKGROUND_COLOR);
+    tft.setTextSize(2);
+    tft.setTextFont(1);
+    String hwText = "Hardware: " + String(HW_VERSION);
+    tft.drawString(hwText, textX, textY + 25);
+    
+    // Firmware (ingrandito)
+    tft.setTextColor(TFT_GREEN, BACKGROUND_COLOR);
+    tft.setTextSize(2);
+    tft.setTextFont(1);
+    String fwText = "Firmware: " + String(SW_VERSION);
+    tft.drawString(fwText, textX, textY + 45);
+    
+    // Autore
+    tft.setTextColor(TFT_YELLOW, BACKGROUND_COLOR);
     tft.setTextSize(1);
     tft.setTextFont(1);
-    String subText = "By IV3LDJ";
-    int textWidth = text.length() * 12;
-    int subTextWidth = subText.length() * 6;
-    int subTextX = textX + (textWidth - subTextWidth);
-    int subTextY = textY + 24;
-    tft.drawString(subText, subTextX, subTextY);
+    tft.drawString("By IV3LDJ", textX, textY + 70);
     
+    // Linea decorativa
     int lineY = logoY + 80 + 15;
     tft.drawLine(10, lineY, tft.width() - 10, lineY, TFT_WHITE);
     
+    // Info sistema
     tft.setTextColor(TFT_GREEN, BACKGROUND_COLOR);
     tft.setTextSize(1);
-    tft.drawString("VFO/BFO with ESP32 + SI5351" + String(SW_VERSION), 10, lineY + 10);
-
-
+    tft.drawString("VFO/BFO with ESP32 + SI5351 " + String(SW_VERSION), 10, lineY + 10);
     
     // DEBUG I2C
     int debugY = lineY + 25;
@@ -71,13 +82,12 @@ void drawSplashScreen() {
             deviceCount++;
             String deviceInfo = "  0x" + String(address, HEX);
             
-
             if (address == 0x20) deviceInfo += " PCF8574A - Digital Output Expander";
             else if (address == 0x22) deviceInfo += " PCF8574T - Keypad Matrix (4x4) Expander";
-            else if (address == 0x50 & EEPROM_SIZE == 4096) deviceInfo += " EEPROM   - 24LC32 (4Kbit)";
-            else if (address == 0x50 & EEPROM_SIZE == 8192) deviceInfo += " EEPROM   - 24LC64 (8Kbit)";
-            else if (address == 0x50 & EEPROM_SIZE == 16384) deviceInfo += " EEPROM   - 24LC128 (16Kbit)";
-            else if (address == 0x50 & EEPROM_SIZE == 32768) deviceInfo += " EEPROM   - 24LC256 (32Kbit)";
+            else if (address == 0x50 && EEPROM_SIZE == 4096) deviceInfo += " EEPROM   - 24LC32 (4Kbit)";
+            else if (address == 0x50 && EEPROM_SIZE == 8192) deviceInfo += " EEPROM   - 24LC64 (8Kbit)";
+            else if (address == 0x50 && EEPROM_SIZE == 16384) deviceInfo += " EEPROM   - 24LC128 (16Kbit)";
+            else if (address == 0x50 && EEPROM_SIZE == 32768) deviceInfo += " EEPROM   - 24LC256 (32Kbit)";
             else if (address == 0x60) deviceInfo += " SI5351A  - programmable signal generator";
             else deviceInfo += " Unknown Device";
             
