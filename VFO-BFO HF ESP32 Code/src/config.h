@@ -9,7 +9,7 @@
 
         #define SW_VERSION "V2.1"
         #define HW_VERSION "V1.1"
-        #define VERSION_DATE "Ottobre 2026"
+        #define VERSION_DATE "Novembre 2026"
 
         #define AUTHOR "Scorpione Maker (IV3LDJ)"
         #define GITHUB_URL "https://github.com/loscorpione/VFO-BFO-HF-ESP32-Si5351"
